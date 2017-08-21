@@ -24,13 +24,14 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - [X] User can change the color settings of the app
+- [X] Text input lengths are limited (5 digits for the bill and 2 digits for the percentage amounts)
 - [X] All settings are remembered across app restarts
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='http://imgur.com/a/5w0zu' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
@@ -42,7 +43,7 @@ As part of your pre-work submission, please reflect on the app and answer the fo
 
 **Answer:** The iOS platform seems fairly straitforward so far. The Swift programming language is syntactially very similar to other object-oriented langagues I've programmed with before. Outlets are representations of a UI object in Swift. For example, a text field might have an outlet that can be used in the code to set properties of the text field, such as the color or default text.  Actions are functions associated with a UI object that are called when given events (related to the specific UI Object) occur. For example, a text field may have an associated action function that is called whenever the text is altered. Based on the storyboard source code, it looks like the UI is created from an HTML-like markup language. I would guess that an outlet represents a div (where div properties can be set in the code using the outlet), and an action detects any event associated with the div (as described by the action) and executes the corresponding function.
 
-Question 2: "Swift uses [Automatic Reference Counting](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID49) (ARC), which is not a garbage collector, to manage memory. Can you explain how you can get a strong reference cycle for closures? (There's a section explaining this concept in the link, how would you summarize as simply as possible?)"
+**Question 2:** "Swift uses [Automatic Reference Counting](https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/AutomaticReferenceCounting.html#//apple_ref/doc/uid/TP40014097-CH20-ID49) (ARC), which is not a garbage collector, to manage memory. Can you explain how you can get a strong reference cycle for closures? (There's a section explaining this concept in the link, how would you summarize as simply as possible?)"
 
 **Answer:** Automatic Reference Counting works by keeping track of how many strong references are made to an instance of an object. If I create an instance of an object and assign it to a variable, that is 1 strong reference to the instance of the object. I can assign the same instance to another variable and create 2 strong references to the instance. When those variables are reset (set to nil or another object instance), the instance loses those strong references. An object will only be deleted by the ARC system if it has no remaining strong instances. This can cause problems when two instances have a strong reference to each other. If objects A and B have a strong reference to each other, when I reset all variables pointing to object A, the instance still will not be deleted, because object B still has a strong reference to A. Then if all variables pointing to object B are reset, object B will not be deleted because A has a strong reference to B. This is a problem because now there is no way to access these instances, but they continue to exist even though they will not be used again. In order to prevent the issue, Objects A could substitute its strong reference for a weak reference (which does not prevent an object from being deleted).
 
