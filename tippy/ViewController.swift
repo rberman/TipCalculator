@@ -50,9 +50,7 @@ class ViewController: UIViewController {
   }
 
   @IBAction func calculateTip(_ sender: Any) {
-    limitBillTextField()
-
-    let tipPercentages = tipValues.getTipDecimals()
+    let tipPercentages = tipValues.getTipDecimals() //TODO: Change to within tipValues class
     let bill = Double(billField.text!) ?? 0
     let tip = bill * tipPercentages[tipControl.selectedSegmentIndex]
     let total = bill + tip
@@ -64,17 +62,17 @@ class ViewController: UIViewController {
     defaults.synchronize()
   }
 
+  @IBAction func limitBillTextFieldLength(_ sender: Any) {
+    let maxLength = 5
+    if (billField.text!.characters.count > maxLength) {
+      billField.deleteBackward()
+    }
+  }
+
   func setSegmentControlTitles() {
     let titles = tipValues.getTipTitles()
     for i in 0...2 {
       segmentControl.setTitle(titles[i], forSegmentAt: i)
-    }
-  }
-
-  func limitBillTextField() {
-    let maxLength = 5
-    if (billField.text!.characters.count > maxLength) {
-      billField.deleteBackward()
     }
   }
 

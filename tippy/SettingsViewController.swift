@@ -38,7 +38,7 @@ class SettingsViewController: UIViewController {
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     let saveOn = defaults.bool(forKey: "save_last_bill")
-    saveLastBill.setOn(saveOn, animated: true)
+    saveLastBill.setOn(saveOn, animated: false)
   }
 
   override func viewWillDisappear(_ animated: Bool) {
@@ -52,11 +52,11 @@ class SettingsViewController: UIViewController {
   }
 
   func saveDefaults() {
+    print("SaveDefaults")
     defaults.set(tipValues.tip0, forKey: "tip_0")
     defaults.set(tipValues.tip1, forKey: "tip_1")
     defaults.set(tipValues.tip2, forKey: "tip_2")
     defaults.set(colorTheme.currentColorIndex, forKey: "color_theme")
-    defaults.set(saveLastBill.isOn, forKey: "save_last_bill")
     defaults.synchronize()
   }
 
@@ -140,7 +140,8 @@ class SettingsViewController: UIViewController {
   }
 
   @IBAction func saveLastBillSwitchValueChanged(_ sender: Any) {
-    saveDefaults()
+    defaults.set(saveLastBill.isOn, forKey: "save_last_bill")
+    defaults.synchronize()
   }
 
     /*
